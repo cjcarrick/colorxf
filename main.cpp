@@ -35,8 +35,12 @@ int main(int argc, char **argv)
         exit(0);
     }
 
+    bool extract_pretty = args.get('E') || args.get("extract-pretty");
+    bool extract = !extract_pretty && (args.get('e') || args.get("extract"));
+
     string output_format;
-    if (!args.get('o', output_format) && !args.get("output", output_format)) {
+    if (!extract_pretty &&
+        (!args.get('o', output_format) && !args.get("output", output_format))) {
         cerr << "Missing output format." << endl;
         exit(1);
     }
@@ -47,9 +51,6 @@ int main(int argc, char **argv)
 
     auto xfs = positionals.empty() ? vector<transforms::ColorTransform>()
                                    : transforms::from_str(positionals[0]);
-
-    bool extract_pretty = args.get('E') || args.get("extract-pretty");
-    bool extract = !extract_pretty && (args.get('e') || args.get("extract"));
 
     Color col;
     string col_string, word, line;
