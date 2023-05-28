@@ -30,6 +30,11 @@ int main(int argc, char **argv)
         exit(0);
     }
 
+    if (args.get("version") || args.get('v')) {
+        cout << "0.1.0" << endl;
+        exit(0);
+    }
+
     string output_format;
     if (!args.get('o', output_format) && !args.get("output", output_format)) {
         cerr << "Missing output format." << endl;

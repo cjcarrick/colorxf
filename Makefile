@@ -19,7 +19,7 @@ prepare:
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 color: main.cpp $(LIB_O)
-	$(CXX) $(CXXFLAGS) main.cpp -o color $(LIB_O)
+	$(CXX) $(CXXFLAGS) main.cpp -o colorxf $(LIB_O)
 
 clean:
-	rm -rf $(DEST) color
+	rm -rf $(DEST) colorxf
