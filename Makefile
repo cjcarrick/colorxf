@@ -1,0 +1,25 @@
+DEST     =  dest
+CXX      =  g++
+CXXFLAGS =  -std=c++20 -Wall
+
+ifdef DEBUG
+CXXFLAGS += -g
+else
+CXXFLAGS += -O3
+endif
+
+LIB_O=$(shell gfind lib -name '*.cpp' -printf './dest/%f.o ' | sed 's/.cpp//g')
+
+build: prepare $(LIB_O) color
+
+prepare:
+	mkdir -p $(DEST)
+
+./$(DEST)/%.o: lib/%.cpp lib/%.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+color: main.cpp $(LIB_O)
+	$(CXX) $(CXXFLAGS) main.cpp -o color $(LIB_O)
+
+clean:
+	rm -rf $(DEST) color
