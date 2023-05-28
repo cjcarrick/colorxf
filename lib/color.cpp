@@ -2,6 +2,7 @@
 #include "./util.h"
 #include <cmath>
 #include <iomanip>
+#include <ios>
 #include <iostream>
 #include <sstream>
 
@@ -37,9 +38,15 @@ void Color::printf(const string &format, string &result) const
 
         interpret = false;
         switch (c) {
-        case 'a': ss << r; break;
-        case 'b': ss << g; break;
-        case 'c': ss << b; break;
+        case 'a':
+            ss << std::showpoint << std::setprecision(r == 1 ? 3 : 2) << r;
+            break;
+        case 'b':
+            ss << std::showpoint << std::setprecision(g == 1 ? 3 : 2) << g;
+            break;
+        case 'c':
+            ss << std::showpoint << std::setprecision(b == 1 ? 3 : 2) << b;
+            break;
 
         case 'A': ss << int(r * 255); break;
         case 'B': ss << int(g * 255); break;
@@ -51,7 +58,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'g':
             hsl(&d1, &d2, &d3);
-            ss << d1;
+            ss << std::showpoint << std::setprecision(d1 == 1 ? 3 : 2) << d1;
             break;
         case 'G':
             hsl(&d1, &d2, &d3);
@@ -60,7 +67,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'h':
             hsl(&d1, &d2, &d3);
-            ss << d2;
+            ss << std::showpoint << std::setprecision(d2 == 1 ? 3 : 2) << d2;
             break;
         case 'H':
             hsl(&d1, &d2, &d3);
@@ -69,7 +76,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'i':
             hsl(&d1, &d2, &d3);
-            ss << d3;
+            ss << std::showpoint << std::setprecision(d3 == 1 ? 3 : 2) << d3;
             break;
         case 'I':
             hsl(&d1, &d2, &d3);
@@ -78,7 +85,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'j':
             hsv(&d1, &d2, &d3);
-            ss << d2;
+            ss << std::showpoint << std::setprecision(d2 == 1 ? 3 : 2) << d2;
             break;
         case 'J':
             hsv(&d1, &d2, &d3);
@@ -87,7 +94,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'k':
             hsv(&d1, &d2, &d3);
-            ss << d3;
+            ss << std::showpoint << std::setprecision(d3 == 1 ? 3 : 2) << d3;
             break;
         case 'K':
             hsv(&d1, &d2, &d3);
@@ -327,6 +334,9 @@ void Color::transform(transforms::ColorTransform xf)
         hsv(d1, d2, d3);
         return;
 
-    case transforms::NUL_CHANNEL: return;
+    case transforms::NUL_CHANNEL:
+        std::cout << " null channel "
+                  << "\n";
+        return;
     }
 }
