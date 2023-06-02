@@ -44,6 +44,10 @@ public:
      */
     void transform(transforms::ColorTransform xf);
 
+    /** Attempts to interpret HEX, RGB, and HSL strings */
+    bool from_str(string s);
+    bool from_str(string &s, std::smatch &sm);
+
     // Printing {{
 
     /** See the print_help() function for detauls. */

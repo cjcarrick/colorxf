@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <regex>
 #include <sstream>
 
 using std::max;
@@ -339,4 +340,71 @@ void Color::transform(transforms::ColorTransform xf)
                   << "\n";
         return;
     }
+}
+
+void Color::mix_with(Color &other, double amount)
+{
+    r = (1 - amount) * r + amount * other.r;
+    g = (1 - amount) * g + amount * other.g;
+    b = (1 - amount) * b + amount * other.b;
+}
+
+bool Color::from_str(string s)
+{
+    std::smatch sm;
+    return from_str(s, sm);
+}
+
+bool Color::from_str(string &s, std::smatch &sm)
+{
+    // clang-format off
+    std::regex expr(
+        "#([0-9a-f])([0-9a-f])([0-9a-f])\\b|"                                      // #RGB
+        "#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})\\b|"                             // #RRGGBB
+        "rgb\\(\\s*([0-9]{1,3})\\s*,\\s*([0-9]{1,3})\\s*,\\s*([0-9]{1,3})\\s*\\)|" // rgb(R, G, B)
+        "hsl\\(\\s*([0-9]{1,3})\\s+([0-9]{1,3})\\s+([0-9]{1,3})\\s*\\)"            // hsl(H S L)
+    );
+    // clang-format on
+
+    if (std::regex_search(s, sm, expr)) {
+
+        // Found #RRGGBB format
+        if (sm[4].matched) {
+            rgb(double(parse_int(sm[4].str(), 16)) / 255.0,
+                double(parse_int(sm[5].str(), 16)) / 255.0,
+                double(parse_int(sm[6].str(), 16)) / 255.0);
+            return true;
+        }
+
+        // Found rgb(R, G, B) format
+        if (sm[7].matched) {
+            rgb(double(parse_num(sm[7])) / 255.0,
+                double(parse_num(sm[8])) / 255.0,
+                double(parse_num(sm[9])) / 255.0);
+            return true;
+        }
+
+        // Found #RGB format
+        if (sm[1].matched) {
+            rgb(double(
+                    parse_int(sm[1].str(), 16) + parse_int(sm[1].str(), 16) * 16
+                ) / 255.0,
+                double(
+                    parse_int(sm[2].str(), 16) + parse_int(sm[2].str(), 16) * 16
+                ) / 255.0,
+                double(
+                    parse_int(sm[3].str(), 16) + parse_int(sm[3].str(), 16) * 16
+                ) / 255.0);
+            return true;
+        }
+
+        // Found hsl(H S L) format
+        if (sm[10].matched) {
+            hsl(parse_num(sm[10].str()) / 360.0,
+                parse_num(sm[11].str()) / 100.0,
+                parse_int(sm[12].str()) / 100.0);
+            return true;
+        }
+    }
+    return false;
 }
