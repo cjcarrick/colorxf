@@ -376,7 +376,7 @@ void Color::transform(transforms::ColorTransform xf)
 
     case transforms::HSV_S:
         hsv(&d1, &d2, &d3);
-        d3 = min(max(handle_operation(d3, 100), 0.0), 1.0);
+        d2 = min(max(handle_operation(d3, 100), 0.0), 1.0);
         hsv(d1, d2, d3);
         return;
 
