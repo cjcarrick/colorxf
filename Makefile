@@ -10,7 +10,7 @@ endif
 
 LIB_O=$(shell gfind lib -name '*.cpp' -printf './dest/%f.o ' | sed 's/.cpp//g')
 
-build: prepare $(LIB_O) color
+build: prepare $(LIB_O) colorxf
 
 prepare:
 	mkdir -p $(DEST)
@@ -18,7 +18,7 @@ prepare:
 ./$(DEST)/%.o: lib/%.cpp lib/%.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-color: main.cpp $(LIB_O)
+colorxf: main.cpp $(LIB_O)
 	$(CXX) $(CXXFLAGS) main.cpp -o colorxf $(LIB_O)
 
 clean:
