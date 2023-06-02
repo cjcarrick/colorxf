@@ -277,5 +277,5 @@ MIXES is a string, structured as follows:
     Where COLOR is a valid color, and AMOUNT is a number from 0-1.
 
     -m can be specified more than once, to mix with more than one color.
-")";
+)";
 }
