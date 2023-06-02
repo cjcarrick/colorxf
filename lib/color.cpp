@@ -341,7 +341,7 @@ void Color::transform(transforms::ColorTransform xf)
         return n;
     };
 
-    double d1, d2, d3;
+    double d1, d2, d3, d4;
 
     switch (xf.channel) {
 
@@ -384,6 +384,30 @@ void Color::transform(transforms::ColorTransform xf)
         hsv(&d1, &d2, &d3);
         d3 = min(max(handle_operation(d3, 100), 0.0), 1.0);
         hsv(d1, d2, d3);
+        return;
+
+    case transforms::CMYK_C:
+        cmyk(&d1, &d2, &d3, &d4);
+        d1 = min(max(handle_operation(d1, 100), 0.0), 1.0);
+        cmyk(d1, d2, d3, d4);
+        return;
+
+    case transforms::CMYK_M:
+        cmyk(&d1, &d2, &d3, &d4);
+        d2 = min(max(handle_operation(d2, 100), 0.0), 1.0);
+        cmyk(d1, d2, d3, d4);
+        return;
+
+    case transforms::CMYK_Y:
+        cmyk(&d1, &d2, &d3, &d4);
+        d3 = min(max(handle_operation(d3, 100), 0.0), 1.0);
+        cmyk(d1, d2, d3, d4);
+        return;
+
+    case transforms::CMYK_K:
+        cmyk(&d1, &d2, &d3, &d4);
+        d4 = min(max(handle_operation(d4, 100), 0.0), 1.0);
+        cmyk(d1, d2, d3, d4);
         return;
 
     case transforms::NUL_CHANNEL:

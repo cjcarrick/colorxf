@@ -30,6 +30,10 @@ CHANNEL parse_channel(string channel)
     if (channel == "hsv_h") return HSV_H;
     if (channel == "hsv_s") return HSV_S;
     if (channel == "hsv_v") return HSV_V;
+    if (channel == "cmyk_c") return CMYK_C;
+    if (channel == "cmyk_m") return CMYK_M;
+    if (channel == "cmyk_y") return CMYK_Y;
+    if (channel == "cmyk_k") return CMYK_K;
     return NUL_CHANNEL;
 }
 

@@ -72,6 +72,10 @@ TRANSFORMS is a string, structured as follows:
         hsv_h
         hsv_s
         hsv_v
+        cmyk_c
+        cmyk_m
+        cmyk_y
+        cmyk_k
 
     And OPERATION is one of:
         +

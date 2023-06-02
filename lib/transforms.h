@@ -24,6 +24,10 @@ enum CHANNEL
     HSV_H,
     HSV_S,
     HSV_V,
+    CMYK_C,
+    CMYK_M,
+    CMYK_Y,
+    CMYK_K,
 };
 
 enum OPERATION
