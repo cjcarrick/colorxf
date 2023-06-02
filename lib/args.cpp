@@ -173,7 +173,7 @@ CHAR_KIND char_kind(char c)
 void print_help()
 {
     cout << R"("
-Usage: colorxf [OPTIONS] [TRANSFORMS] --output OUTPUT
+Usage: colorxf [OPTIONS] [TRANSFORMS] [MIXES] --output OUTPUT
 Read from stdin, capture COLORS, apply any TRANSFORMS, and output colors in format specified by OUTPUT.
 Example: echo "My favorite color is #fe7 and #ee178a is not." | color -o "rgb(%A, %B, %C)\"
 
@@ -185,6 +185,7 @@ COLORS must be of the following format:
 
 Options:
     -e, --extract          Only output colors, each on a new line.
+    -m, --mix              Mix with another color. See MIXES for details.
     -E, --extract-pretty   Only output colors, with rich information about each color. -o is ignored.
     -h, --help             Print help and exit.
     -o, --output           Specify output format. See OUTPUT for more information.
@@ -269,5 +270,12 @@ TRANSFORMS is a string, structured as follows:
 
     Example:
         echo #eee | color "rgb_r=12,rgb_g+84,hsl_s*0.2" -o "#%D%E%F"
+
+MIXES is a string, structured as follows:
+    <COLOR>,<AMOUNT>
+
+    Where COLOR is a valid color, and AMOUNT is a number from 0-1.
+
+    -m can be specified more than once, to mix with more than one color.
 ")";
 }
