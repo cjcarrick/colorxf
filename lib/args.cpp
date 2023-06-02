@@ -72,6 +72,27 @@ bool Args::get(const string &key) const
     return false;
 }
 
+bool Args::get(const string &key, vector<string> &value) const
+{
+    for (int i = 0; i < keys.size(); i++) {
+        if (keys[i] == key) {
+            value.push_back(values[i]);
+        }
+    }
+    return !value.empty();
+}
+
+bool Args::get(char key, vector<string> &value) const
+{
+    for (int i = 0; i < keys.size(); i++) {
+        if (keys[i].length() != 1) continue;
+        if (keys[i][0] == key) {
+            value.push_back(values[i]);
+        }
+    }
+    return !value.empty();
+}
+
 bool Args::get(char key) const
 {
     for (const auto &k : keys) {

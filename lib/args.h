@@ -33,11 +33,14 @@ public:
      * Retrieve the value for a specified key, and store it in value.
      *
      * Returns true if the key exists, and false otherwise.
-     * 
+     *
      * String value is only modified if a value is actually found.
      */
     bool get(const string &key, string &value) const;
     bool get(char key, string &value) const;
+    /** Return all instances of this key */
+    bool get(char key, vector<string> &value) const;
+    bool get(const string &key, vector<string> &value) const;
 
     /**
      * Returns true if the key exists, and false otherwise
