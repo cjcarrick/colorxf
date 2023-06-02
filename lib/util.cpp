@@ -59,17 +59,17 @@ double parse_num(string num)
     return n;
 }
 
-string int_to_str(int in, int radix = 10, int min_length = 0)
+string int_to_str(int in, int radix = 10, int min_length = 1)
 {
-    if (in == 0) return "0";
-
     string result;
     char c;
 
-    for (int i = radix; i <= in * radix; i *= radix) {
-        c = in % i / (i / radix);
-        c += c > 9 ? 'a' - 10 : '0';
-        result = c + result;
+    if (in) {
+        for (int i = radix; i <= in * radix; i *= radix) {
+            c = in % i / (i / radix);
+            c += c > 9 ? 'a' - 10 : '0';
+            result = c + result;
+        }
     }
 
     if (result.length() < min_length) {
