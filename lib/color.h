@@ -20,7 +20,7 @@ private:
 public:
     /** an empty initializer will initialize the color to black */
     Color();
-    Color(int r, int g, int b);
+    Color(double r, double g, double b);
 
     /** Set HSL */
     void hsl(double h, double s, double l);

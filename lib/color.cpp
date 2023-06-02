@@ -115,7 +115,7 @@ void Color::printf(const string &format, string &result) const
 }
 
 Color::Color() : r(0), g(0), b(0){};
-Color::Color(int r, int g, int b) : r(r), g(g), b(b){};
+Color::Color(double r, double g, double b) : r(r), g(g), b(b){};
 
 string Color::ansi_fg() const
 {
