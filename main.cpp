@@ -66,56 +66,16 @@ int main(int argc, char **argv)
 
     std::smatch sm;
     while (std::getline(cin, line)) {
-        while (std::regex_search(line, sm, expr)) {
+        while (col.from_str(line, sm)) {
 
-            if (!extract && !extract_pretty) cout << sm.prefix();
-
-            // Found #RRGGBB format
-            if (sm[4].matched) {
-                col.rgb(
-                    double(parse_int(sm[4].str(), 16)) / 255.0,
-                    double(parse_int(sm[5].str(), 16)) / 255.0,
-                    double(parse_int(sm[6].str(), 16)) / 255.0
-                );
+            if (!extract && !extract_pretty) {
+                cout << sm.prefix();
             }
 
-            // Found rgb(R, G, B) format
-            else if (sm[7].matched) {
-                col.rgb(
-                    double(parse_num(sm[7])) / 255.0,
-                    double(parse_num(sm[8])) / 255.0,
-                    double(parse_num(sm[9])) / 255.0
-                );
+            for (auto xf : xfs) {
+                col.transform(xf);
             }
-
-            // Found #RGB format
-            else if (sm[1].matched) {
-                col.rgb(
-                    double(
-                        parse_int(sm[1].str(), 16) +
-                        parse_int(sm[1].str(), 16) * 16
-                    ) / 255.0,
-                    double(
-                        parse_int(sm[2].str(), 16) +
-                        parse_int(sm[2].str(), 16) * 16
-                    ) / 255.0,
-                    double(
-                        parse_int(sm[3].str(), 16) +
-                        parse_int(sm[3].str(), 16) * 16
-                    ) / 255.0
-                );
             }
-
-            // Found hsl(H S L) format
-            else if (sm[10].matched) {
-                col.hsl(
-                    parse_num(sm[10].str()) / 360.0,
-                    parse_num(sm[11].str()) / 100.0,
-                    parse_int(sm[12].str()) / 100.0
-                );
-            }
-
-            for (auto xf : xfs) col.transform(xf);
 
             if (extract_pretty) {
                 col.pretty_print();
