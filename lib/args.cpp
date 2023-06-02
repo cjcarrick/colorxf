@@ -220,6 +220,16 @@ OUTPUT can be any string, with these special sequences:
     %k    Value            0.00-1.00
     %K    Value            0-100 (integer)
 
+    CMYK
+    %o    Cyan             0.00-1.00
+    %O    Cyan             0-100 (integer)
+    %p    Magenta          0.00-1.00
+    %P    Magenta          0-100 (integer)
+    %q    Yellow           0.00-1.00
+    %Q    Yellow           0-100 (integer)
+    %r    Black            0.00-1.00
+    %R    Black            0-100 (integer)
+
     %l    ANSI Truecolor FG Escape Sequence
     %m    ANSI Truecolor BG Escape Sequence
 
@@ -244,6 +254,10 @@ TRANSFORMS is a string, structured as follows:
         hsv_h
         hsv_s
         hsv_v
+        cmyk_c
+        cmyk_m
+        cmyk_y
+        cmyk_k
 
     And OPERATION is one of:
         +

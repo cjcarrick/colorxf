@@ -3,7 +3,7 @@
 ```
 Usage: colorxf [OPTIONS] [TRANSFORMS] --output OUTPUT
 Read from stdin, capture COLORS, apply any TRANSFORMS, and output colors in format specified by OUTPUT.
-Example: echo "My favorite color is #fe7 and #ee178a is not." | color -o "rgb(%A, %B, %C)"
+Example: echo "My favorite color is #fe7 and #ee178a is not." | color -o "rgb(%A, %B, %C)\"
 
 COLORS must be of the following format:
     #RGB
@@ -47,6 +47,16 @@ OUTPUT can be any string, with these special sequences:
     %J    Saturation       0-100 (integer)
     %k    Value            0.00-1.00
     %K    Value            0-100 (integer)
+
+    CMYK
+    %o    Cyan             0.00-1.00
+    %O    Cyan             0-100 (integer)
+    %p    Magenta          0.00-1.00
+    %P    Magenta          0-100 (integer)
+    %q    Yellow           0.00-1.00
+    %Q    Yellow           0-100 (integer)
+    %r    Black            0.00-1.00
+    %R    Black            0-100 (integer)
 
     %l    ANSI Truecolor FG Escape Sequence
     %m    ANSI Truecolor BG Escape Sequence
