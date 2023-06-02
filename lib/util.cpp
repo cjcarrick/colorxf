@@ -29,24 +29,28 @@ int parse_int(const string &num, int radix = 10)
 
 double parse_num(string num)
 {
-    int n = 0, dec = -1;
+    double n = 0;
+    int dec_start = -1;
     for (int i = 0; i < num.size(); i++) {
         char c = num[i];
 
-        if (c == '.' && dec > -1) {
+        // Cannot have more than one decimal point in a number
+        if (c == '.' && dec_start > -1) {
             return -1;
         }
         if (c == '.') {
-            dec = i;
+            dec_start = i;
             continue;
         }
 
+        // Chars must be in range 0-9
         if (c < '0' || c > '9') {
             return -1;
         }
 
-        if (dec > -1) {
-            n += (c - '0') / pow(10, i - dec);
+        // If we are adding decimal digits
+        if (dec_start > -1) {
+            n += double(c - '0') / pow(10.0, double(i - dec_start));
         }
         else {
             n = (n * 10) + (c - '0');
