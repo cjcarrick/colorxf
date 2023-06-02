@@ -98,4 +98,4 @@ Binary file is written to the project root.
 _None of these were a huge priority for me so I didn't add them._
 
 - [ ] Add support for alpha channel
-- [ ] Add CMYK
+- [x] Add CMYK

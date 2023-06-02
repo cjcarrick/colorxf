@@ -37,6 +37,11 @@ public:
     /** Get HSV */
     void hsv(double *h, double *s, double *v) const;
 
+    /** Set CMYK */
+    void cmyk(double c, double m, double y, double k);
+    /** Get CMYK */
+    void cmyk(double *c, double *m, double *y, double *k) const;
+
     /**
      * Apply a transform to this color.
      *

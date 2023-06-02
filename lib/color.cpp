@@ -24,7 +24,7 @@ void Color::printf(const string &format, string &result) const
 {
     std::stringstream ss;
     bool interpret = false;
-    double d1, d2, d3;
+    double d1, d2, d3, d4;
 
     for (auto c : format) {
         if (c == '%') {
@@ -102,6 +102,42 @@ void Color::printf(const string &format, string &result) const
             ss << int(d3 * 100);
             break;
 
+        case 'o':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << std::showpoint << std::setprecision(d1 >= 1 ? 3 : 2) << d1;
+            break;
+        case 'O':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << int(d1 * 100);
+            break;
+
+        case 'p':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << std::showpoint << std::setprecision(d2 >= 1 ? 3 : 2) << d2;
+            break;
+        case 'P':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << int(d2 * 100);
+            break;
+
+        case 'q':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << std::showpoint << std::setprecision(d3 >= 1 ? 3 : 2) << d3;
+            break;
+        case 'Q':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << int(d3 * 100);
+            break;
+
+        case 'r':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << std::showpoint << std::setprecision(d4 >= 1 ? 3 : 2) << d4;
+            break;
+        case 'R':
+            cmyk(&d1, &d2, &d3, &d4);
+            ss << int(d4 * 100);
+            break;
+
         case 'l': ss << ansi_fg(); break;
         case 'm': ss << ansi_bg(); break;
 
@@ -124,6 +160,21 @@ string Color::ansi_fg() const
 string Color::ansi_bg() const
 {
     return printf("\e[48;2;%A;%B;%Cm");
+}
+
+void Color::cmyk(double c, double m, double y, double k)
+{
+    r = (1.0 - c) * (1.0 - k);
+    g = (1.0 - m) * (1.0 - k);
+    b = (1.0 - y) * (1.0 - k);
+}
+
+void Color::cmyk(double *c, double *m, double *y, double *k) const
+{
+    *k = 1 - max({*c, *m, *y});
+    *c = (1 - r - *k) / (1 - *k);
+    *m = (1 - g - *k) / (1 - *k);
+    *y = (1 - b - *k) / (1 - *k);
 }
 
 void Color::rgb(double _r, double _g, double _b)
