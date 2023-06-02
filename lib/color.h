@@ -22,6 +22,8 @@ public:
     Color();
     Color(double r, double g, double b);
 
+    void mix_with(Color &other, double amount);
+
     /** Set HSL */
     void hsl(double h, double s, double l);
     /** Get HSL */

@@ -1,5 +1,6 @@
 #include "./lib/args.h"
 #include "./lib/color.h"
+#include "./lib/mix.h"
 #include "./lib/transforms.h"
 #include "./lib/util.h"
 #include <cmath>
@@ -24,6 +25,12 @@ int main(int argc, char **argv)
     args.set_bool_opt("E");
     args.set_bool_opt("extract");
     args.set_bool_opt("extract-pretty");
+
+    vector<string> mix_strs;
+    args.get("m", mix_strs);
+    args.get("mix", mix_strs);
+    vector<mix::MixData> mixes;
+    for (auto mix_str : mix_strs) mix::from_str(mix_str, mixes);
 
     if (args.get("help") || args.get('h')) {
         print_help();
@@ -75,6 +82,8 @@ int main(int argc, char **argv)
             for (auto xf : xfs) {
                 col.transform(xf);
             }
+            for (auto mix : mixes) {
+                col.mix_with(mix.that, mix.amount);
             }
 
             if (extract_pretty) {
