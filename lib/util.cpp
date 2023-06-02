@@ -9,12 +9,12 @@ using std::vector;
 int parse_int(const string &num, int radix = 10)
 {
     if (radix == 0 || radix > 36) return -1;
-    char firstChar = '0';
-    char lastChar = "0123456789abcdefghijklmnopqrstuvwxyz"[radix];
+    char first_char = '0';
+    char last_char = "0123456789abcdefghijklmnopqrstuvwxyz"[radix];
 
     int result = 0;
     for (auto c : num) {
-        if (c > lastChar || c < firstChar) return -1;
+        if (c > last_char || c < first_char) return -1;
         if (c > '9' && c < 'a') return -1;
         if (c >= 'a') {
             result = (result * radix) + (c - 'a' + 10);
