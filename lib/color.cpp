@@ -358,7 +358,7 @@ void Color::transform(transforms::ColorTransform xf)
     case transforms::HSL_H:
     case transforms::HSV_H:
         hsl(&d1, &d2, &d3);
-        d1 = min(max(handle_operation(d1, 100), 0.0), 1.0);
+        d1 = min(max(handle_operation(d1, 360), 0.0), 1.0);
         hsl(d1, d2, d3);
         return;
 
