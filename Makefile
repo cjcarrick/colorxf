@@ -8,7 +8,7 @@ else
 CXXFLAGS += -O3
 endif
 
-LIB_O=$(shell gfind lib -name '*.cpp' -printf './dest/%f.o ' | sed 's/.cpp//g')
+LIB_O=$(shell find lib -name '*.cpp' -printf './dest/%f.o ' | sed 's/.cpp//g')
 
 build: prepare $(LIB_O) colorxf
 
