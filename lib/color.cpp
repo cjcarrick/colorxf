@@ -40,13 +40,13 @@ void Color::printf(const string &format, string &result) const
         interpret = false;
         switch (c) {
         case 'a':
-            ss << std::showpoint << std::setprecision(r >= 1 ? 3 : 2) << r;
+            ss << std::fixed << std::setprecision(2) << r;
             break;
         case 'b':
-            ss << std::showpoint << std::setprecision(g >= 1 ? 3 : 2) << g;
+            ss << std::fixed << std::setprecision(2) << g;
             break;
         case 'c':
-            ss << std::showpoint << std::setprecision(b >= 1 ? 3 : 2) << b;
+            ss << std::fixed << std::setprecision(2) << b;
             break;
 
         case 'A': ss << int(r * 255); break;
@@ -59,7 +59,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'g':
             hsl(&d1, &d2, &d3);
-            ss << std::showpoint << std::setprecision(d1 >= 1 ? 3 : 2) << d1;
+            ss << std::fixed << std::setprecision(2) << d1;
             break;
         case 'G':
             hsl(&d1, &d2, &d3);
@@ -68,7 +68,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'h':
             hsl(&d1, &d2, &d3);
-            ss << std::showpoint << std::setprecision(d2 >= 1 ? 3 : 2) << d2;
+            ss << std::fixed << std::setprecision(2) << d2;
             break;
         case 'H':
             hsl(&d1, &d2, &d3);
@@ -77,7 +77,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'i':
             hsl(&d1, &d2, &d3);
-            ss << std::showpoint << std::setprecision(d3 >= 1 ? 3 : 2) << d3;
+            ss << std::fixed << std::setprecision(2) << d3;
             break;
         case 'I':
             hsl(&d1, &d2, &d3);
@@ -86,7 +86,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'j':
             hsv(&d1, &d2, &d3);
-            ss << std::showpoint << std::setprecision(d2 >= 1 ? 3 : 2) << d2;
+            ss << std::fixed << std::setprecision(2) << d2;
             break;
         case 'J':
             hsv(&d1, &d2, &d3);
@@ -95,7 +95,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'k':
             hsv(&d1, &d2, &d3);
-            ss << std::showpoint << std::setprecision(d3 >= 1 ? 3 : 2) << d3;
+            ss << std::fixed << std::setprecision(2) << d3;
             break;
         case 'K':
             hsv(&d1, &d2, &d3);
@@ -104,7 +104,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'o':
             cmyk(&d1, &d2, &d3, &d4);
-            ss << std::showpoint << std::setprecision(d1 >= 1 ? 3 : 2) << d1;
+            ss << std::fixed << std::setprecision(2) << d1;
             break;
         case 'O':
             cmyk(&d1, &d2, &d3, &d4);
@@ -113,7 +113,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'p':
             cmyk(&d1, &d2, &d3, &d4);
-            ss << std::showpoint << std::setprecision(d2 >= 1 ? 3 : 2) << d2;
+            ss << std::fixed << std::setprecision(2) << d2;
             break;
         case 'P':
             cmyk(&d1, &d2, &d3, &d4);
@@ -122,7 +122,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'q':
             cmyk(&d1, &d2, &d3, &d4);
-            ss << std::showpoint << std::setprecision(d3 >= 1 ? 3 : 2) << d3;
+            ss << std::fixed << std::setprecision(2) << d3;
             break;
         case 'Q':
             cmyk(&d1, &d2, &d3, &d4);
@@ -131,7 +131,7 @@ void Color::printf(const string &format, string &result) const
 
         case 'r':
             cmyk(&d1, &d2, &d3, &d4);
-            ss << std::showpoint << std::setprecision(d4 >= 1 ? 3 : 2) << d4;
+            ss << std::fixed << std::setprecision(2) << d4;
             break;
         case 'R':
             cmyk(&d1, &d2, &d3, &d4);
