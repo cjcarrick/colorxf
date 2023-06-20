@@ -320,10 +320,10 @@ void Color::pretty_print() const
     hsv(&hsv_h, &hsv_s, &hsv_v);
 
     // clang-format off
-    std::cout << ansi_bg() << "      " << ANSI_RESET << printf(" R:  %A \tH:  %G \tH:  %G \tX: %o") << '\n'
-              << ansi_bg() << "      " << ANSI_RESET << printf(" G:  %B \tS:  %H \tS:  %J \tY: %p") << '\n'
-              << ansi_bg() << "      " << ANSI_RESET << printf(" B:  %C \tL:  %I \tV:  %K \tX: %q") << '\n'
-              << ""        << "      " << ""         << printf(" #%D%E%F")                          << '\n';
+    std::cout << ansi_bg() << "      " << ANSI_RESET << printf(" R:  %A \tH:  %G \tH:  %G") << '\n'
+              << ansi_bg() << "      " << ANSI_RESET << printf(" G:  %B \tS:  %H \tS:  %J") << '\n'
+              << ansi_bg() << "      " << ANSI_RESET << printf(" B:  %C \tL:  %I \tV:  %K") << '\n'
+              << ""        << "      " << ""         << printf(" #%D%E%F")                  << '\n';
     // clang-format on
 }
 

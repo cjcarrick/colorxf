@@ -173,9 +173,9 @@ CHAR_KIND char_kind(char c)
 void print_help()
 {
     cout << R"("
-Usage: colorxf [OPTIONS] [TRANSFORMS] [MIXES] --output OUTPUT
+Usage: colorxf [OPTIONS] [-x TRANSFORMS] [-m MIXES] OUTPUT
 Read from stdin, capture COLORS, apply any TRANSFORMS, and output colors in format specified by OUTPUT.
-Example: echo "My favorite color is #fe7 and #ee178a is not." | color -o "rgb(%A, %B, %C)\"
+Example: echo "My favorite color is #fe7 and #ee178a is not." | color "rgb(%A, %B, %C)\"
 
 COLORS must be of the following format:
     #RGB
@@ -186,9 +186,9 @@ COLORS must be of the following format:
 Options:
     -e, --extract          Only output colors, each on a new line.
     -m, --mix              Mix with another color. See MIXES for details.
-    -E, --extract-pretty   Only output colors, with rich information about each color. -o is ignored.
+    -x, --transform        Apply transformations to input colors. See TRANSFORMS for detauls.
+    -E, --extract-pretty   Only output colors, with rich information about each color. OUTPUT is ignored.
     -h, --help             Print help and exit.
-    -o, --output           Specify output format. See OUTPUT for more information.
     -v, --version          Print version and exit.
 
 OUTPUT can be any string, with these special sequences:
@@ -241,7 +241,7 @@ OUTPUT can be any string, with these special sequences:
     Any unrecognized sequences will be left as-is; '%z' will stay as '%z', etc.
 
 TRANSFORMS is a string, structured as follows:
-    <CHANNEL><OPRATION><VALUE>[,<CHANNEL><OPERATION><VALUE>...]
+    <CHANNEL><OPRATION><VALUE>
 
     They are used to set, add to, or multiply color channels.
 
@@ -268,8 +268,10 @@ TRANSFORMS is a string, structured as follows:
 
     And VALUE is a number.
 
+    -x can be specified more than once, to transform a color in multiple ways.
+
     Example:
-        echo #eee | color "rgb_r=12,rgb_g+84,hsl_s*0.2" -o "#%D%E%F"
+        echo #eee | color -x "rgb_r=12" -x "rgb_g+84" -x "hsl_s*0.2" "#%D%E%F"
 
 MIXES is a string, structured as follows:
     <COLOR>,<AMOUNT>

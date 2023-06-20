@@ -1,9 +1,9 @@
 # colorxf
 
 ```
-Usage: colorxf [OPTIONS] [TRANSFORMS] [MIXES] --output OUTPUT
+Usage: colorxf [OPTIONS] [TRANSFORMS] [MIXES] OUTPUT
 Read from stdin, capture COLORS, apply any TRANSFORMS, and output colors in format specified by OUTPUT.
-Example: echo "My favorite color is #fe7 and #ee178a is not." | color -o "rgb(%A, %B, %C)\"
+Example: echo "My favorite color is #fe7 and #ee178a is not." | color "rgb(%A, %B, %C)\"
 
 COLORS must be of the following format:
     #RGB
@@ -14,9 +14,8 @@ COLORS must be of the following format:
 Options:
     -e, --extract          Only output colors, each on a new line.
     -m, --mix              Mix with another color. See MIXES for details.
-    -E, --extract-pretty   Only output colors, with rich information about each color. -o is ignored.
+    -E, --extract-pretty   Only output colors, with rich information about each color. OUTPUT is ignored.
     -h, --help             Print help and exit.
-    -o, --output           Specify output format. See OUTPUT for more information.
     -v, --version          Print version and exit.
 
 OUTPUT can be any string, with these special sequences:
@@ -97,7 +96,7 @@ TRANSFORMS is a string, structured as follows:
     And VALUE is a number.
 
     Example:
-        echo #eee | color "rgb_r=12,rgb_g+84,hsl_s*0.2" -o "#%D%E%F"
+        echo #eee | color "rgb_r=12,rgb_g+84,hsl_s*0.2" "#%D%E%F"
 
 MIXES is a string, structured as follows:
     <COLOR>,<AMOUNT>

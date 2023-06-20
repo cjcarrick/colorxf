@@ -32,6 +32,12 @@ int main(int argc, char **argv)
     vector<mix::MixData> mixes;
     for (auto mix_str : mix_strs) mix::from_str(mix_str, mixes);
 
+    vector<string> xf_strs;
+    args.get("x", xf_strs);
+    args.get("xf", xf_strs);
+    vector<transforms::ColorTransform> xfs;
+    for (auto xf_str : xf_strs) transforms::from_str(xf_str, xfs);
+
     if (args.get("help") || args.get('h')) {
         print_help();
         exit(0);
@@ -45,9 +51,13 @@ int main(int argc, char **argv)
     bool extract_pretty = args.get('E') || args.get("extract-pretty");
     bool extract = !extract_pretty && (args.get('e') || args.get("extract"));
 
-    string output_format;
-    if (!extract_pretty &&
-        (!args.get('o', output_format) && !args.get("output", output_format))) {
+    string output_format = "";
+    for (const auto&s : args.get_positionals()) {
+        if (s.empty()) output_format += ' ';
+        output_format += s;
+    }
+
+    if (!extract_pretty && output_format.empty()) {
         cerr << "Missing output format." << endl;
         exit(1);
     }
@@ -55,9 +65,6 @@ int main(int argc, char **argv)
     string value;
 
     auto positionals = args.get_positionals();
-
-    auto xfs = positionals.empty() ? vector<transforms::ColorTransform>()
-                                   : transforms::from_str(positionals[0]);
 
     Color col;
     string col_string, word, line;

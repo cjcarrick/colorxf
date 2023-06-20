@@ -1,5 +1,6 @@
 #include "./transforms.h"
 #include "./util.h"
+#include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
@@ -37,23 +38,18 @@ CHANNEL parse_channel(string channel)
     return NUL_CHANNEL;
 }
 
-vector<ColorTransform> from_str(string s)
+void from_str(string s, vector<ColorTransform>& output)
 {
-    auto xf_strs = split(s, std::regex("\\s*,\\s*"));
     std::regex regexp(
         "([a-z_]+)([+-=*])([0-9.]+)", std::regex_constants::icase
     );
     std::smatch sm;
 
-    vector<ColorTransform> xfs;
     ColorTransform xf;
-    for (auto &xf_str : xf_strs) {
-        if (!std::regex_search(xf_str, sm, regexp)) continue;
-        xf.channel = parse_channel(sm[1].str()),
-        xf.operation = parse_delimiter(sm[2].str()),
-        xf.value = (int)parse_num(sm[3].str());
-        xfs.push_back(xf);
-    }
-    return xfs;
+    if (!std::regex_search(s, sm, regexp)) return;
+    xf.channel = parse_channel(sm[1].str()),
+    xf.operation = parse_delimiter(sm[2].str()),
+    xf.value = (int)parse_num(sm[3].str());
+    output.push_back(xf);
 }
 } // namespace transforms

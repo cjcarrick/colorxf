@@ -50,7 +50,7 @@ OPERATION parse_delimiter(string delimiter);
 
 CHANNEL parse_channel(string channel);
 
-vector<ColorTransform> from_str(string s);
+void from_str(string s, vector<ColorTransform>& output);
 
 } // namespace transforms
 
