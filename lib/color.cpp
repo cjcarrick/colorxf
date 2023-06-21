@@ -310,20 +310,11 @@ void Color::hsl(double h, double s, double l)
 
 void Color::pretty_print() const
 {
-    double rgb_r, rgb_g, rgb_b;
-    rgb(&rgb_r, &rgb_g, &rgb_b);
-
-    double hsl_h, hsl_s, hsl_l;
-    hsl(&hsl_h, &hsl_s, &hsl_l);
-
-    double hsv_h, hsv_s, hsv_v;
-    hsv(&hsv_h, &hsv_s, &hsv_v);
-
     // clang-format off
-    std::cout << ansi_bg() << "      " << ANSI_RESET << printf(" R:  %A \tH:  %G \tH:  %G") << '\n'
-              << ansi_bg() << "      " << ANSI_RESET << printf(" G:  %B \tS:  %H \tS:  %J") << '\n'
-              << ansi_bg() << "      " << ANSI_RESET << printf(" B:  %C \tL:  %I \tV:  %K") << '\n'
-              << ""        << "      " << ""         << printf(" #%D%E%F")                  << '\n';
+    std::cout << printf("%m      ") << ANSI_RESET << "  R: " << setw(9) << printf("%A   H: ") << setw(9) << printf("%G   H: ") << setw(9) << printf("%G   C: ") << setw(4) << printf("%O") << std::endl
+              << printf("%m      ") << ANSI_RESET << "  G: " << setw(9) << printf("%B   S: ") << setw(9) << printf("%H   S: ") << setw(9) << printf("%H   M: ") << setw(4) << printf("%P") << std::endl
+              << printf("%m      ") << ANSI_RESET << "  B: " << setw(9) << printf("%C   L: ") << setw(9) << printf("%I   V: ") << setw(9) << printf("%I   Y: ") << setw(4) << printf("%Q") << std::endl
+              <<          "      "  << ""  << printf("  #%D%E%F") << "                    "                                                           << "K: "  << setw(4) << printf("%R") << std::endl;
     // clang-format on
 }
 
