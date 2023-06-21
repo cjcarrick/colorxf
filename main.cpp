@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     }
 
     if (args.get("version") || args.get('v')) {
-        cout << "0.3.0" << endl;
+        cout << "0.4.0" << endl;
         exit(0);
     }
 
