@@ -6,6 +6,8 @@ using std::string;
 #ifndef COLOR_H
 #define COLOR_H
 
+#define ANSI_RESET "\e[0m"
+
 /**
  * All getters and setters will use doubles that range from 0-1
  */
@@ -18,6 +20,8 @@ private:
     double b;
 
 public:
+    string raw_string;
+
     /** an empty initializer will initialize the color to black */
     Color();
     Color(double r, double g, double b);

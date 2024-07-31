@@ -5,6 +5,7 @@
 #include "./lib/util.h"
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <regex>
 #include <string>
@@ -23,8 +24,10 @@ int main(int argc, char **argv)
     Args args(argv, argc);
     args.set_bool_opt("e");
     args.set_bool_opt("E");
+    args.set_bool_opt("l");
     args.set_bool_opt("extract");
     args.set_bool_opt("extract-pretty");
+    args.set_bool_opt("highlight");
 
     vector<string> mix_strs;
     args.get("m", mix_strs);
@@ -48,16 +51,25 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    bool extract_pretty = args.get('E') || args.get("extract-pretty");
-    bool extract = !extract_pretty && (args.get('e') || args.get("extract"));
+    enum {
+        EXTRACT,
+        EXTRACT_PRETTY,
+        HIGHLIGHT
+    } mode = HIGHLIGHT;
+
+    if (args.get('E') || args.get("extract-pretty")) {
+        mode = EXTRACT;
+    } else if (args.get('e') || args.get("extract")) {
+        mode = EXTRACT_PRETTY;
+    }
 
     string output_format = "";
-    for (const auto&s : args.get_positionals()) {
+    for (const auto &s : args.get_positionals()) {
         if (s.empty()) output_format += ' ';
         output_format += s;
     }
 
-    if (!extract_pretty && output_format.empty()) {
+    if (mode == EXTRACT_PRETTY && output_format.empty()) {
         cerr << "Missing output format." << endl;
         exit(1);
     }
@@ -81,8 +93,7 @@ int main(int argc, char **argv)
     std::smatch sm;
     while (std::getline(cin, line)) {
         while (col.from_str(line, sm)) {
-
-            if (!extract && !extract_pretty) {
+            if (mode == HIGHLIGHT) {
                 cout << sm.prefix();
             }
 
@@ -93,19 +104,26 @@ int main(int argc, char **argv)
                 col.mix_with(mix.that, mix.amount);
             }
 
-            if (extract_pretty) {
+            if (mode == EXTRACT_PRETTY) {
                 col.pretty_print();
             }
-            else {
-                col.printf(output_format, col_string);
-                cout << col_string;
+            else if (mode == HIGHLIGHT) {
+                cout << col.ansi_fg() << (output_format.empty() ? col.raw_string : col.printf(output_format)) << ANSI_RESET;
             }
-            if (extract) cout << '\n';
+            else {
+                cout << col.printf(output_format);
+            }
+
+            if (mode == EXTRACT) {
+                cout << '\n';
+            }
 
             line = sm.suffix();
         }
 
-        if (!extract && !extract_pretty) cout << line;
+        if (mode == HIGHLIGHT) {
+            cout << line;
+        }
     }
 
     return 0;

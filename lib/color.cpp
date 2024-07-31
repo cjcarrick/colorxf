@@ -11,8 +11,6 @@ using std::max;
 using std::min;
 using std::setw;
 
-#define ANSI_RESET "\e[0m"
-
 string Color::printf(const string &format) const
 {
     string result;
@@ -439,6 +437,7 @@ bool Color::from_str(string &s, std::smatch &sm)
             rgb(double(parse_int(sm[4].str(), 16)) / 255.0,
                 double(parse_int(sm[5].str(), 16)) / 255.0,
                 double(parse_int(sm[6].str(), 16)) / 255.0);
+            raw_string = '#' + sm[4].str() + sm[5].str() + sm[6].str();
             return true;
         }
 
@@ -447,6 +446,7 @@ bool Color::from_str(string &s, std::smatch &sm)
             rgb(double(parse_num(sm[7])) / 255.0,
                 double(parse_num(sm[8])) / 255.0,
                 double(parse_num(sm[9])) / 255.0);
+            raw_string = "rgb(" + sm[7].str() + ',' + sm[8].str() + ',' + sm[9].str() + ')';
             return true;
         }
 
@@ -461,6 +461,7 @@ bool Color::from_str(string &s, std::smatch &sm)
                 double(
                     parse_int(sm[3].str(), 16) + parse_int(sm[3].str(), 16) * 16
                 ) / 255.0);
+                raw_string = '#' + sm[1].str() + sm[2].str() + sm[3].str();
             return true;
         }
 
@@ -469,6 +470,7 @@ bool Color::from_str(string &s, std::smatch &sm)
             hsl(parse_num(sm[10].str()) / 360.0,
                 parse_num(sm[11].str()) / 100.0,
                 parse_int(sm[12].str()) / 100.0);
+            raw_string = "hsl(" + sm[10].str() + ' ' + sm[11].str() + ' ' + sm[12].str() + ')';
             return true;
         }
     }
